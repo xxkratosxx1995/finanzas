@@ -14,10 +14,9 @@ export default function AuthPage() {
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo:
-          typeof window !== 'undefined'
-            ? window.location.origin
-            : 'http://localhost:3000',
+        // vuelve al mismo origen (prod o local) al hacer clic en el correo
+        emailRedirectTo: `${window.location.origin}`,
+        // si prefieres una ruta específica: `${window.location.origin}/auth/callback`
       },
     });
     if (error) setError(error.message);
